@@ -22,6 +22,7 @@ const corsOptions = {
     "https://voxa.buzz",
     "https://www.voxa.buzz",
     "http://192.168.214.243:5173",
+    "https://election-front-end.onrender.com"
   ],
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
