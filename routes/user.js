@@ -37,7 +37,7 @@ UserRouter.post("/account/register", async (req, res) => {
         role: "emailConfirmation",
         Id: result._id,
       },
-      process.env.JWTSECRET,
+      "haven",
       {
         expiresIn: "10m",
       }
@@ -71,7 +71,7 @@ UserRouter.post("/account/register", async (req, res) => {
 UserRouter.post("/account/verify-email", async (req, res) => {
   try {
     const token = req.body.token;
-    const vefified = jwt.verify(token, process.env.JWTSECRET);
+    const vefified = jwt.verify(token, "haven");
     const { Id } = vefified;
     const user = await UserSchema.findOne({ _id: Id });
     console.log(user);
@@ -173,7 +173,7 @@ UserRouter.post("/account/login", async (req, res) => {
     //   return res.status(400).json({ message: "Email not verified" });
     // }
 
-    const token = jwt.sign({ Id: user._id }, process.env.JWTSECRET, {
+    const token = jwt.sign({ Id: user._id }, "haven", {
       expiresIn: "30d",
     });
 
@@ -200,7 +200,7 @@ UserRouter.get("/account/current-user", async (req, res) => {
     }
 
     const token = authorization.split("Bearer ")[1];
-    const userId = jwt.verify(token, process.env.JWTSECRET);
+    const userId = jwt.verify(token, "haven");
     const user = await UserSchema.findOne({ _id: userId.Id });
 
     if (!user) {
@@ -230,7 +230,7 @@ UserRouter.post("/account/request-password-reset-mail", async (req, res) => {
     }
     const token = jwt.sign(
       { Id: user._id, version: user.version ? user.version : 0 },
-      process.env.JWTSECRET,
+      "haven",
       { expiresIn: "10m" }
     );
 
@@ -293,7 +293,7 @@ UserRouter.post("/account/google-auth", async (req, res) => {
     console.log(response.data);
     const userExists = await UserSchema.findOne({ email: response.data.email });
     if (userExists) {
-      const token = jwt.sign({ id: userExists._id }, process.env.JWTSECRET, {
+      const token = jwt.sign({ id: userExists._id }, "haven", {
         expiresIn: "30d",
       });
 
@@ -313,7 +313,7 @@ UserRouter.post("/account/google-auth", async (req, res) => {
       });
 
       await newUser.save();
-      const token = jwt.sign({ id: newUser._id }, process.env.JWTSECRET, {
+      const token = jwt.sign({ id: newUser._id }, "haven", {
         expiresIn: "30d",
       });
       return res
