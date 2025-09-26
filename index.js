@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
 async function connectMongo() {
   console.log("Starting");
   try {
-    await mongoose.connect(process.env.MONGOCONNECTIONSTRING);
+    await mongoose.connect('mongodb+srv://Scale:Agada123@cluster0.rhkwmfm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
     console.log("CONNECTED");
     server.listen(3000, () => {
       console.log("Server running on port 3000");
